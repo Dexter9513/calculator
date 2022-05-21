@@ -1,0 +1,88 @@
+@font-face {
+    font-family: 'nine-pin-font';
+    src: url('./ninepin.ttf')
+}
+
+body {
+    background-color: #e4ebf5;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: medium;
+    margin: 0px;
+    min-height: 100vh;
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 200px;
+    border-radius: 8px;
+    background-color: #c9cdc7c7;
+    box-shadow: .3rem .6rem .6rem #c8d0e7,
+        -.2rem -.2rem .5rem #fff;
+    padding: 4px;
+    display: flex column;
+}
+
+.display {
+    font-family: 'nine-pin-font';
+    letter-spacing: 1px;
+    color: #0d2413;
+    border-radius: 6px;
+    box-shadow: #62815a 0px 0px 12px 2px inset;
+    background-color: #accb9f;
+    margin: 30px 8px 20px 8px;
+    padding: 4px 4px 0px 4px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.input-container {
+    max-width: 98%;
+    display: inline-block;
+    height: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.input {
+    float: right;
+}
+
+.output {
+    height: 20px;
+    text-align: right;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.keys {
+    margin: 2px 2px 10px 2px;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+
+button {
+    background-color: #31343a;
+    color: white;
+    height: 25px;
+    width: 40px;
+    box-shadow: 2px 4px 4px 0px #000;
+    border-radius: 4px;
+    border-top-style: unset;
+    margin: 4px 2px;
+    padding: 2px;
+    font-size: 20px;
+}
+
+.big {
+    font-size: 12px;
+}
