@@ -38,7 +38,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
 }
 
 .input-container {
@@ -85,4 +84,12 @@ button {
 
 .big {
     font-size: 12px;
+}
+
+.medium {
+    font-size: 14px;
+}
+
+.red {
+    background-color: red;
 }
