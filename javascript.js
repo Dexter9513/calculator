@@ -21,7 +21,7 @@ function filterKeyboardPress(key) {
         .replace('/', '÷')
         .replace('-', '−')
         .replace('Enter', '=');
-    if (key.match(/^[0-9+×÷−=\.\(\)]$/)) {
+    if (key.match(/^[0-9+×÷−=\.\(\)\^㏒]$/)) {
         return key;
     }
 }
@@ -34,7 +34,7 @@ function buttonPress() {
 }
 
 function elementIsOperator(value) {
-    if (value.match(/[\+−×÷\^²/]$|×10\^/)) return true;
+    if (value.match(/[\+−×÷\^²⁻¹/]$|×10\^/)) return true;
 }
 
 function calculate(expression) {
@@ -89,8 +89,20 @@ function exponent(a, b) {
     return String(a ** b);
 }
 
+function tenPower(a) {
+    return String(10 ** a);
+}
+
+function log(a) {
+    return String(Math.log10(a));
+}
+
 function square(a) {
     if (!isNaN(a)) return String(a ** 2);
+}
+
+function inverse(a) {
+    if (!isNaN(a)) return String (a ** -1);
 }
 
 function squareRoot(a) {
@@ -100,13 +112,13 @@ function squareRoot(a) {
 function reduce(array, index, func) {
     let operand1 = array[index - 1];
     let operand2 = array[index + 1];
-    if (func === square) {
-        let result = square(operand1);
+    if ([square, inverse].includes(func)) {
+        let result = func(operand1);
         if (!result) return ['Math Error!'];
         array.splice(index - 1, 2, result);
         return array;
-    } else if (func === squareRoot) {
-        let result = squareRoot(operand2);
+    } else if ([squareRoot, tenPower, log].includes(func)) {
+        let result = func(operand2);
         if (!result) return ['Math Error!'];
         array.splice(index, 2, result);
         return array;
@@ -148,7 +160,7 @@ function parseBrackets(expressionArray) {
 }
 
 function parseExpression(inputArray) {
-    let expressionArray = inputArray.join('').match(/([\+−×÷√²\^\(\)/])|([\d\.]+)|(Ans)/g);
+    let expressionArray = inputArray.join('').match(/([\+−×÷√²\^\(\)㏒])|([\d\.]+)|(Ans)|(⁻¹)|(₁₀)/g);
     expressionArray = expressionArray.map(element => element === 'Ans' ? String(ans).replace('-', '−') : element);
     while (expressionArray.includes('(')) {
         expressionArray = parseBrackets(expressionArray);
@@ -179,10 +191,16 @@ function preliminaryEvaluation(expressionArray) {
     do {
         if (expressionArray.includes('√')) {
             expressionArray = reduce(expressionArray, expressionArray.indexOf('√'), squareRoot);
+        } else if (expressionArray.includes('⁻¹')) {
+            expressionArray = reduce(expressionArray, expressionArray.indexOf('⁻¹'), inverse);
         } else if (expressionArray.includes('²')) {
             expressionArray = reduce(expressionArray, expressionArray.indexOf('²'), square);
         } else if (expressionArray.includes('^')) {
             expressionArray = reduce(expressionArray, expressionArray.indexOf('^'), exponent);
+        } else if (expressionArray.includes('₁₀')) {
+            expressionArray = reduce(expressionArray, expressionArray.indexOf('₁₀'), tenPower);
+        } else if (expressionArray.includes('㏒')) {
+            expressionArray = reduce(expressionArray, expressionArray.indexOf('㏒'), log);
         } else if (expressionArray.includes('−')) {
             expressionArray = reduce(expressionArray, expressionArray.lastIndexOf('−'), '−');
         } else {
