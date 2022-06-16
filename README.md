@@ -1,5 +1,5 @@
-A Simple Calcualtor in Javascript
+A Simple Calculator in Javascript
 
-Live Preview: https://dexter9513.github.io/calculator/
+Live Preview: https://timow3rn3r.github.io/calculator/
 
 ![Calculator](./calculator.png)
